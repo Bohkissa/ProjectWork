@@ -1,0 +1,10 @@
+/* Tablet rules (601px - 900px) */
+/* Slightly smaller square media on tablet and reduced vertical lift */
+.feature-media{flex:0 0 420px;width:420px;height:420px}
+.feature-media .feature-image{position:absolute;top:0;left:0;width:100%;height:100%}
+.feature + .feature{transform:translateY(calc(-1 * var(--img-overlap) / 2));z-index:3}
+
+/* Reduce spacing between image and text on tablet for denser layout */
+.feature{gap:1rem}
+.feature:not(.feature--reverse) .feature-content{padding-right:calc(var(--img-overlap) / 2 + 8px)}
+.feature--reverse .feature-content{padding-left:calc(var(--img-overlap) / 2 + 8px)}

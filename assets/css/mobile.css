@@ -1,0 +1,44 @@
+.feature-media .feature-image{position:relative;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover}
+
+/* Smartphone layout: stack feature vertically with image first */
+.feature{display:flex;flex-direction:column;gap:0.75rem}
+.feature .feature-media,.feature--reverse .feature-media{order:-1}
+.feature .feature-content,.feature--reverse .feature-content{order:0}
+.feature + .feature .feature-media{transform:none}
+.feature-media{padding-top:0;height:auto;width:100%;max-width:none;overflow:visible}
+.feature-media .img-placeholder{height:180px}
+/* Ensure images are not absolutely positioned and don't overlap text */
+.feature-media .feature-image{position:relative;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;display:block}
+/* Remove desktop/tablet paddings that push text under images */
+.feature-content{padding:0;margin:0}
+.feature:not(.feature--reverse) .feature-content{padding-right:0}
+.feature--reverse .feature-content{padding-left:0}
+
+/* Fallbacks to ensure text is visible and images don't overlap content */
+.feature-media{z-index:1;position:relative}
+.feature-content{position:relative;z-index:2;background:transparent}
+.feature-media .feature-image{max-width:100%;height:auto;display:block;position:relative}
+
+/* Mobile layout adjustments */
+.main-nav{display:none}
+.nav-toggle{display:block;color:var(--white);background:transparent;border:0;font-size:1.6rem}
+.layout-with-sidebar{grid-template-columns:1fr}
+.topbar-inner{flex-direction:row;align-items:center;justify-content:space-between;padding:.4rem 1rem}
+.container{padding-left:1.25rem;padding-right:1.25rem}
+.main-nav.open{display:block;background:var(--white);padding:1.25rem 1.25rem}
+.main-nav.open ul{flex-direction:column}
+.main-nav a{display:block;padding:.75rem 0}
+.hero-video{height:60vh}
+.hero h2{font-size:1.6rem}
+.hero-inner p{font-size:0.95rem}
+.hero-inner h2::before, .hero-inner h2::after{font-size:1.6rem;left:-0.6rem;right:-0.6rem;top:-0.2rem;bottom:-0.2rem;-webkit-text-stroke:0.9px}
+.two-cols-inner{grid-template-columns:1fr}
+
+/* Sidebar ordering on mobile */
+.layout-with-sidebar{display:flex;flex-direction:column}
+.layout-with-sidebar .changelog-sidebar{order:-1;position:relative;top:auto;max-height:none;overflow:visible;padding-bottom:1rem}
+.layout-with-sidebar main{order:0}
+.changelog-sidebar details{width:100%}
+
+/* Scroll-to-top small sizing */
+.scroll-top{right:14px;bottom:14px;width:44px;height:44px}

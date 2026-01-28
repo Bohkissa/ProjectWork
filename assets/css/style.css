@@ -1,0 +1,392 @@
+@import "./vars.css";
+@import "./desktop.css" screen and (min-width:901px);
+@import "./tablet.css" screen and (min-width:601px) and (max-width:900px);
+@import "./mobile.css" screen and (max-width:600px);
+
+/* Reset minimal */
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* -----------------------------
+   Base / Layout
+   ----------------------------- */
+body{font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--dark);background:var(--bg);line-height:1.6;font-size:16px}
+.container{max-width:var(--container);margin:0 auto;padding:1.25rem 1rem}
+
+.container ul,
+.container ol{padding-left:1.25rem}
+.container ul ul,.container ol ol,.container ul ol,.container ol ul{padding-left:1rem;margin-top:.25rem}
+.container ul ul,.container ol ol,.container ul ol,.container ol ul{padding-left:1rem;margin-top:.25rem}
+
+
+/* -----------------------------
+   Topbar / Header / Nav
+   ----------------------------- */
+.topbar{background:transparent;color:var(--dark);font-size:.8rem;height:var(--topbar-h)}
+.topbar-inner{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;align-items:center;height:100%}
+.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+
+.lang-switch{position:relative;display:inline-flex;align-items:center;z-index:3000;height:100%}
+.lang-switch a{border:0;background:transparent;color:var(--white);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;padding:.2rem .45rem;border-radius:4px;font-size:.85rem;text-decoration:none}
+.home .lang-switch a{color:var(--white)}
+.lang-switch .fa{font-size:.7rem}
+.lang-menu{position:absolute;right:0;top:calc(100% + -2px);display:none;list-style:none;margin:0;padding:.25rem;background:var(--primary);min-width:55px;z-index:9999;border-radius:6px;border:1px solid rgba(255,255,255,0.06);box-shadow:0 6px 18px rgba(0,0,0,0.12)}
+.topbar .right,.topbar-links,.lang-switch{z-index:3000}
+.lang-menu.open{display:block}
+.lang-menu li{padding:0 .3rem;cursor:pointer;color:var(--white);white-space:nowrap;font-size:.85rem}
+.lang-menu li:hover{background:rgba(255,255,255,0.04)}
+
+.topbar .left{display:flex;align-items:center;gap:.75rem}
+.topbar-links{list-style:none;margin:0;padding:0;display:flex;gap:.5rem;align-items:center}
+.topbar-links a{color:var(--white);text-decoration:none;font-size:.85rem;padding:.2rem .4rem;border-radius:0;position:relative;display:inline-block}
+.topbar-links a::after{content:'';position:absolute;left:0;right:0;height:1px;background:var(--white);bottom:4px;transform:scaleX(0);transform-origin:left center;transition:transform .18s ease}
+.topbar-links a:hover{background:rgba(0,0,0,0.04);color:var(--white)}
+.topbar-links a:hover::after{transform:scaleX(1)}
+
+.site-header{background:transparent;border-bottom:1px solid var(--border);height:var(--header-h)}
+.site-header .container{padding:0}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:0 1rem;height:100%;position:relative}
+.brand{display:flex;align-items:center;position:absolute;left:1rem;top:0px;transform:translateY(-50%);z-index:5}
+.brand a{font-weight:700;color:var(--primary);text-decoration:none;font-size:1.25rem}
+.brand .logo{height:40px;width:auto;display:block}
+.main-nav{margin-left:auto;position:relative}
+.main-nav ul{display:flex;gap:0.2rem;list-style:none}
+.main-nav{background:transparent}
+.main-nav a{font-family:Gilam, Arial, sans-serif;font-weight:700;font-size:.95rem;height:1.6rem;line-height:1.9rem;color:var(--dark);text-decoration:none;padding:.35rem .45rem;background:transparent;cursor:pointer}
+.main-nav a:hover, .main-nav li:hover > a{color:var(--accent)}
+.has-submenu{position:relative}
+.has-submenu > a{color:var(--white)}
+.has-submenu .submenu{position:fixed;left:0;right:0;top:calc(var(--topbar-h) + var(--header-h));background:var(--white);border-top:1px solid var(--border);box-shadow:0 8px 28px rgba(11,59,71,0.08);height:40px;z-index:100;transform:translateY(-12px);opacity:0;pointer-events:none;transition:transform .32s cubic-bezier(.2,.9,.2,1), opacity .24s ease}
+.has-submenu.submenu-open .submenu{transform:translateY(0);opacity:1;pointer-events:auto}
+.has-submenu .submenu ul{display:flex;justify-content:flex-end;gap:0.2rem;list-style:none;margin:0;padding:0 1rem;width:100%;align-items:center;height:100%}
+.has-submenu .submenu li a{color:var(--primary);text-decoration:none;padding:0 .75rem;display:inline-flex;align-items:center;height:100%;font-family:RubikLight, Rubik, Arial, sans-serif;text-transform:capitalize;border-radius:0;transition:color .12s ease;font-size:.95rem;font-weight:300}
+.has-submenu .submenu li a:hover{font-weight:700;background:transparent;color:var(--primary)}
+
+/* Ensure hover/active colors override header scrolled / non-home rules */
+.main-nav li.has-submenu:hover > a,
+.main-nav li.has-submenu:focus-within > a{color:var(--accent) !important}
+.has-submenu.submenu-open > a{color:var(--primary) !important}
+
+/* Force submenu links color to primary even when header has scrolled styles */
+.has-submenu .submenu li a{color:var(--primary) !important}
+.site-header-wrap.scrolled .has-submenu.submenu-open > a{color:var(--accent) !important}
+.site-header-wrap.scrolled .has-submenu .submenu li a{color:var(--primary) !important}
+
+/* When submenu is open mark the toggle as active and force primary color (override scrolled state) */
+.has-submenu.submenu-open > a{color:var(--accent) !important;font-weight:700}
+.nav-toggle{display:none;background:transparent;border:0;font-size:1.5rem}
+
+
+/* -----------------------------
+   Site header wrapper (fixed) and scroll behavior
+   ----------------------------- */
+.site-header-wrap{position:fixed;left:0;right:0;top:0;z-index:9999;display:block;overflow:visible}
+.site-header-wrap::before{content:'';position:absolute;left:0;right:0;top:0;height:calc(var(--topbar-h) + var(--header-h));background:var(--hero-overlay-gradient);z-index:1;pointer-events:none}
+.site-header-wrap > *{position:relative;z-index:2}
+.home .topbar{height:var(--topbar-h)}
+.home .site-header{height:var(--header-h)}
+/* Pull the hero up under the fixed header to avoid white gap below the topbar */
+.stat-number .stat-main{font-family:Gilam,'Gilam Demo',serif;display:inline-block}
+.stat-number .stat-suffix{font-family:Rubik, Arial, sans-serif;display:inline-block;margin-left:.2ch;font-size:.45em;}
+.home .hero{margin-top: calc(-1 * (var(--topbar-h) + var(--header-h)));}
+.site-header-wrap.scrolled::before{background:#12262f;transition:background .18s ease}
+.site-header-wrap.scrolled .topbar-inner,.site-header-wrap.scrolled .brand a,.site-header-wrap.scrolled .main-nav a{color:var(--white)}
+.site-header-wrap .topbar-links a,.site-header-wrap .main-nav a,.site-header-wrap .lang-switch a{color:var(--white)}
+body:not(.home) .site-main{padding-top:calc(var(--topbar-h) + var(--header-h))}
+body:not(.home) .site-header-wrap::before{background:#12262f}
+body:not(.home) .topbar-inner,body:not(.home) .brand a,body:not(.home) .main-nav a{color:var(--white)}
+
+/* Header color/behavior overrides to avoid conflicts
+    - keep submenu parent highlighted with --accent when active/open
+    - ensure submenu links remain --primary even when header is scrolled
+    - these rules are specific and use !important where necessary to override
+*/
+.has-submenu.submenu-active > a,
+.has-submenu.submenu-open > a,
+.site-header-wrap.scrolled .has-submenu.submenu-active > a,
+.site-header-wrap.scrolled .has-submenu.submenu-open > a{
+   color:var(--accent) !important;
+   font-weight:700 !important;
+}
+.has-submenu .submenu li a,
+.site-header-wrap.scrolled .has-submenu .submenu li a{
+   color:var(--primary) !important;
+}
+
+
+
+/* -----------------------------
+   Hero
+   ----------------------------- */
+.hero{position:relative;overflow:hidden;margin:0;width:100vw;margin-left:calc(50% - 50vw);z-index:1}
+.hero-video{width:100%;height:100vh;object-fit:cover;display:block;aspect-ratio:16/9;min-height:100vh}
+.hero-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--hero-overlay-gradient);z-index:5;pointer-events:none}
+.hero-inner{text-align:center;color:var(--white);padding:1.5rem}
+.hero-inner h2{font-family:'AbrilFatface',Merriweather,Georgia,serif;letter-spacing:.2px}
+.hero-inner p{font-size:1.05rem}
+.hero h2{font-size:4.2rem;margin-bottom:.5rem}
+.hero-inner h2{position:relative;display:inline-block;font-weight:400}
+.hero-inner h2::before,.hero-inner h2::after{position:absolute;color:transparent;-webkit-text-fill-color:transparent;-webkit-text-stroke:1px #fff;font-family:'AbrilFatface',Georgia,serif;line-height:1;pointer-events:none}
+.hero-inner h2::before{content:"\201C";left:-3rem;top:-1rem;font-size:8.5rem}
+.hero-inner h2::after{content:"\201D";right:-2.5rem;top:3rem;font-size:8.5rem}
+
+
+/* -----------------------------
+   Buttons / Controls
+   ----------------------------- */
+.btn{display:inline-block;padding:.6rem 1rem;border-radius:0;text-decoration:none;cursor:pointer;border:2px solid var(--primary);background:transparent;color:var(--primary);transition:background .18s ease,color .18s ease,opacity .18s ease}
+.btn.secondary{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+.btn:hover,.btn:focus{background:var(--primary);color:var(--white);outline:none}
+.video-toggle{position:absolute;right:16px;bottom:16px;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--white);color:var(--primary);border:0;z-index:1300;cursor:pointer;box-shadow:none}
+.video-toggle i{font-size:20px;color:var(--primary);display:block;width:20px;height:20px;line-height:20px;text-align:center;margin:0}
+.video-toggle:focus{outline:2px solid rgba(11,59,71,0.08);outline-offset:2px}
+
+
+/* -----------------------------
+   Cards / Page / Content
+   ----------------------------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1.5rem 0}
+.card{background:var(--white);padding:1rem;border-radius:8px;border:1px solid rgba(11,59,71,0.06);box-shadow:0 6px 18px rgba(11,59,71,0.03)}
+.page{background:transparent;padding:1.25rem;border-radius:0;border:0;margin:0;width:100%;max-width:none}
+.site-main .container{padding-top:1.5rem;padding-bottom:1.5rem}
+
+/* Contact page / generic page headings and paragraphs */
+.contact-page .page-title{font-size:2.6rem;margin-top:3rem;margin-bottom:1.75rem;font-family:Gilam,'Gilam Demo',serif;font-weight:900;color:var(--title-color);line-height:1.05}
+.contact-page .contact-info{max-width:900px;margin:0 auto 1.75rem;text-align:left;font-family:RubikLight, Rubik, Arial, sans-serif;font-weight:300;color:var(--paragraph-color)}
+.contact-page .company-name{font-size:1.6rem;font-family:Gilam,'Gilam Demo',serif;font-weight:900;margin-top:.75rem;margin-bottom:.75rem;color:var(--title-color)}
+.contact-page p{font-family:RubikLight, Rubik, Arial, sans-serif;font-weight:300;color:var(--paragraph-color);margin:.6rem 0;font-size:1.05rem;line-height:1.6}
+.contact-page .contact-info > *{margin-bottom:.8rem}
+.contact-page .map-wrapper{max-width:900px;margin:2.5rem auto 2.5rem}
+
+.page h1,.page h2,.page .page-title{font-family:Gilam,'Gilam Demo',serif;font-weight:900;color:var(--title-color);margin-top:3rem;margin-bottom:1.75rem;line-height:1.05}
+.page h1{font-size:2.8rem}
+.page h2{font-size:2.4rem}
+.page h3,.page .company-name{font-family:Gilam,'Gilam Demo',serif;font-weight:900;color:var(--title-color);font-size:1.6rem;margin-top:.75rem;margin-bottom:.75rem}
+.page p,.page li{font-family:RubikLight, Rubik, Arial, sans-serif;font-weight:300;color:var(--paragraph-color);font-size:1.05rem;line-height:1.6;margin:.6rem 0}
+.page .map-wrapper{margin-top:2.5rem;margin-bottom:2.5rem}
+
+
+/* -----------------------------
+   Changelog / Sidebar / Layout
+   ----------------------------- */
+.site-section.changelog > .container > h1{font-family:Gilam,'Gilam Demo',serif;font-weight:900;color:var(--title-color);font-size:2.8rem;margin-top:3rem;margin-bottom:1.75rem;line-height:1.05}
+.site-section.changelog > .container > .lead{font-family:RubikLight,Rubik,Arial,sans-serif;font-weight:300;color:var(--paragraph-color);font-size:1.05rem;line-height:1.6;margin-bottom:1.5rem}
+.changelog-sidebar h3{font-family:Gilam,'Gilam Demo',serif;color:var(--title-color);font-weight:900}
+.layout-with-sidebar{display:grid;grid-template-columns:1fr 300px;gap:1rem;align-items:start}
+.sidebar{background:var(--white);padding:1rem;border-radius:8px;border:1px solid rgba(11,59,71,0.06)}
+.changelog-sidebar{position:sticky;top:calc(var(--topbar-h) + var(--header-h) + 16px);max-height:calc(100vh - (var(--topbar-h) + var(--header-h)) - 32px);overflow:auto}
+.changelog-sidebar nav h3{font-size:0.95rem;margin-bottom:.5rem}
+.changelog-sidebar ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.45rem}
+.changelog-sidebar a{color:var(--primary);text-decoration:none;padding:.35rem .5rem;border-radius:6px;display:block}
+.changelog-sidebar a:hover{background:rgba(11,59,71,0.04);text-decoration:none}
+.changelog-sidebar details{background:transparent;border-radius:6px;padding:0}
+.changelog-sidebar summary{cursor:pointer;padding:.25rem .4rem;font-weight:700;list-style:none}
+.changelog-sidebar summary::-webkit-details-marker{display:none}
+.changelog-sidebar details[open] > summary{color:var(--primary)}
+.changelog-sidebar details ul{margin:0;padding-left:1rem;margin-top:.35rem}
+.changelog-sidebar details ul li a{padding:.2rem 0;border-radius:4px}
+.changelog-sidebar summary i{margin-left:.5rem;transition:transform .18s ease;color:var(--muted)}
+.changelog-sidebar details[open] summary i{transform:rotate(180deg);color:var(--primary)}
+
+
+/* -----------------------------
+   Feature blocks / Post-hero
+   ----------------------------- */
+.feature-blocks{max-width:var(--container);margin:2.5rem auto;padding:0 1rem;display:flex;flex-direction:column;gap:2rem}
+.feature{display:flex;align-items:center;gap:1.5rem}
+.feature-content{flex:1 1 0%;text-align:left}
+.feature-media{flex:0 0 590px;max-width:100%;display:block;overflow:visible}
+.feature--reverse{flex-direction:row-reverse}
+.feature--reverse .feature-content{text-align:right}
+.feature{position:relative;z-index:1}
+.feature:not(.feature--reverse) .feature-content{padding-right:calc(var(--img-overlap) + 12px)}
+.feature--reverse .feature-content{padding-left:calc(var(--img-overlap) + 12px)}
+.feature-content h2{font-family:Gilam,'Gilam Demo',serif;font-weight:900;color:var(--title-color);font-size:2rem;margin:0 0 .75rem}
+.feature-content .lead{font-family:RubikLight,Rubik,Arial,sans-serif;color:var(--paragraph-color);margin-bottom:1rem}
+.feature-media .img-placeholder{width:100%;height:220px;background:linear-gradient(135deg,#e6eef0,#f6f7f8);display:flex;align-items:center;justify-content:center;color:var(--dark);border-radius:0;border:0;font-family:RubikLight,Rubik,Arial,sans-serif}
+.feature-media{position:relative;width:100%;max-width:600px}
+.feature-media .feature-image{position:relative;display:block;object-fit:cover;object-position:center;border-radius:0;border:0;box-shadow:0 .2rem 2rem rgba(0,0,0,0.2)}
+.feature-blocks .feature:nth-of-type(1) .feature-content{text-align:left}
+.feature-blocks .feature:nth-of-type(2) .feature-content{text-align:right}
+
+/* PDF action buttons (chapter pages) */
+.pdf-actions{margin:1rem 0;display:flex;gap:.5rem;flex-wrap:wrap}
+.pdf-actions .btn{background:transparent;color:var(--primary);border:2px solid var(--primary);padding:.45rem .6rem;font-size:.95rem}
+.pdf-actions .btn:hover{background:var(--primary);color:var(--white)}
+
+
+/* -----------------------------
+   Commitment / Two-cols
+   ----------------------------- */
+.commitment{background:transparent;padding:1.25rem 0;margin:1rem 0}
+.commitment-inner{text-align:center;background:var(--white);padding:1.25rem;border-radius:8px;border:1px solid rgba(11,59,71,0.06)}
+.two-cols{margin:1rem 0}
+.two-cols-inner{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.two-cols-inner .col{background:var(--white);padding:1.25rem;border-radius:8px;border:1px solid rgba(11,59,71,0.06)}
+
+/* Chapter index grid for sostenibilita */
+.chapter-index{margin:1.5rem 0}
+.chapter-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.chapter-card{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.25rem;border-radius:8px;text-decoration:none;color:var(--white);border:0}
+.chapter-card:hover{box-shadow:0 8px 22px rgba(11,59,71,0.06)}
+.chapter-number{font-family:'DMSans', sans-serif;font-weight:700;font-size:4rem;margin-bottom:.35rem;color:var(--white);-webkit-text-stroke:0;-webkit-text-fill-color:var(--white);}
+.chapter-title{font-family:Gilam, 'Gilam Demo',serif;font-weight:900;color:var(--white);text-align:center}
+
+@media (max-width:900px){
+   .chapter-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+   .chapter-grid{grid-template-columns:1fr}
+}
+
+/* Per-colors for chapter cards (number + title) */
+.chapter-card:nth-of-type(1){background:#a74016}
+.chapter-card:nth-of-type(2){background:#ff725d}
+.chapter-card:nth-of-type(3){background:#9aa2b8}
+.chapter-card:nth-of-type(4){background:#57c293}
+.chapter-card:nth-of-type(5){background:#80ba55}
+.chapter-card:nth-of-type(6){background:#2e7f3e}
+.chapter-card:nth-of-type(7){background:#3e5883}
+.chapter-card:nth-of-type(8){background:#ab7743}
+
+/* Leading zero for chapter numbers in cards */
+.chapter-number::before{content:"0";display:inline-block;margin-right:.1ch}
+
+/* Sidebar chapter list: remove default marker and add leading-zero counter */
+.chapter-list{list-style:none;padding-left:0;margin:0;counter-reset:chapter}
+.chapter-list li{counter-increment:chapter;position:relative;padding-left:3.6rem;margin-bottom:.5rem;line-height:1.6}
+.chapter-list li::before{content: "0" counter(chapter) ".";position:absolute;left:0;top:50%;transform:translateY(-50%);font-weight:700;color:var(--muted);font-family:'DMSans',sans-serif}
+
+/* Sidebar colors match chapter colors */
+.chapter-list li:nth-of-type(1)::before{color:#a74016}
+.chapter-list li:nth-of-type(2)::before{color:#ff725d}
+.chapter-list li:nth-of-type(3)::before{color:#9aa2b8}
+.chapter-list li:nth-of-type(4)::before{color:#57c293}
+.chapter-list li:nth-of-type(5)::before{color:#80ba55}
+.chapter-list li:nth-of-type(6)::before{color:#2e7f3e}
+.chapter-list li:nth-of-type(7)::before{color:#3e5883}
+.chapter-list li:nth-of-type(8)::before{color:#ab7743}
+
+
+.stat-number{font-family:Gilam,'Gilam Demo',DMSans, sans-serif;font-weight:800;font-size:2.2rem;color:var(--white);line-height:1}
+.stat-label{font-family:RubikLight, Rubik, Arial, sans-serif;font-weight:300;color:var(--white);font-size:0.95rem;text-align:center;margin-top:.5rem}
+
+/* separate styling for main number and suffix/prefix */
+.stat-number .stat-main{font-family:Gilam,'Gilam Demo',serif;display:inline-block}
+.stat-number .stat-suffix{font-family:Rubik, Arial, sans-serif;display:inline-block;margin-left:.2ch;font-size:.75em}
+
+/* -----------------------------
+   Footer, Alerts, Forms, Utility
+   ----------------------------- */
+.footer-inner{display:flex;gap:1rem;padding:1.75rem;align-items:flex-start}
+.site-footer{margin-top:2rem;background:#555;color:var(--white)}
+.footer-inner{display:flex;gap:1rem;padding:1.75rem;align-items:flex-start}
+.footer-inner .col{flex:1}
+.footer-inner .col.logos{display:flex;flex-direction:column;gap:1rem}
+.footer-inner .brand-logos{display:flex;gap:.5rem;align-items:center;margin-top:1rem}
+.footer-inner .brand-logos img{height:34px;display:inline-block}
+.footer-inner .company-info{font-size:.7rem;line-height:1.35;color:var(--white)}
+.footer-bottom{text-align:center;padding:.75rem;background:rgba(0,0,0,0.06);font-size:.9rem;color:var(--white)}
+
+/* Useful links in footer: remove bullets, white links, accent on hover */
+.site-footer .useful-links{list-style:none;padding:0;margin:0}
+.site-footer .useful-links li{margin:0.35rem 0}
+.site-footer .useful-links a{color:var(--white);text-decoration:none}
+.site-footer .useful-links a:hover{color:var(--accent)}
+
+/* Ensure all footer links are white by default and use accent on hover */
+.site-footer a{color:var(--white)}
+.site-footer a:hover{color:var(--accent)}
+.alert{padding:.75rem;border-radius:6px;margin-bottom:1rem}
+.alert.success{background:#e6ffef;border:1px solid #b9f2d0}
+.alert.error{background:#fff0f0;border:1px solid #f2b9b9}
+.contact-form label{display:block;margin-bottom:.75rem}
+.contact-form input,.contact-form textarea{width:100%;padding:.6rem;border:1px solid rgba(11,59,71,0.08);border-radius:6px}
+
+.developer-card p{display:flex;align-items:center;gap:.5rem;margin:.35rem 0}
+.developer-card i{color:var(--primary);width:20px;text-align:center}
+.developer-card a{color:var(--dark);text-decoration:none}
+.developer-card a:hover{text-decoration:underline}
+.social-links{margin-top:.6rem}
+.social-links a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--white);color:var(--primary);margin-right:.5rem;text-decoration:none;transition:background .12s ease,color .12s ease;border:1px solid var(--primary)}
+.social-links a i{width:18px;height:18px;line-height:18px;text-align:center;color:inherit}
+.social-links a:hover{background:var(--primary);color:var(--white);border-color:transparent}
+
+
+/* -----------------------------
+   Scroll-to-top button
+   ----------------------------- */
+.scroll-top{position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--primary);color:var(--white);border:0;box-shadow:0 6px 18px rgba(0,0,0,0.18);z-index:1500;cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .18s ease, transform .18s ease;pointer-events:none}
+.scroll-top i{font-size:1.05rem}
+.scroll-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+
+/* -----------------------------
+    Stats grid (profilo) 
+    ----------------------------- */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:1200px;margin:2rem auto;padding:1rem 1rem}
+.stat-item{background:transparent;padding:1.25rem;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90px}
+.stat-number{font-family:Gilam,'Gilam Demo',DMSans, sans-serif;font-weight:800;font-size:2.2rem;color:var(--white);line-height:1}
+.stat-label{font-family:RubikLight, Rubik, Arial, sans-serif;font-weight:300;color:var(--white);font-size:0.95rem;text-align:center;margin-top:.5rem}
+
+@media (max-width:900px){
+   .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+   .stats-grid{grid-template-columns:1fr}
+    .stat-number{font-size:1.8rem}
+}
+
+/* Profilo page: full-screen profile section */
+.profilo-fullscreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:4rem 1rem;background:var(--white);color:var(--title-color);width:100vw;margin-left:calc(50% - 50vw);}
+.profilo-fullscreen > div{max-width:900px;text-align:center}
+.profilo-fullscreen h2{font-family:Gilam,'Gilam Demo',serif;font-size:2.8rem;margin-bottom:1rem;color:var(--title-color)}
+.profilo-fullscreen p{font-family:RubikLight, Rubik, Arial, sans-serif;font-size:1.05rem;color:var(--paragraph-color);line-height:1.6}
+
+/* Key numbers: darker background, white numbers */
+.key-numbers{padding:3rem 1rem;background:var(--primary);color:var(--white);width:100vw;margin-left:calc(50% - 50vw);}
+.key-numbers h2{font-family:Gilam,'Gilam Demo',serif;font-size:2.4rem;color:var(--accent);text-align:center;margin-bottom:1.25rem}
+.key-numbers .stats-grid{max-width:1100px;margin:0 auto}
+.key-numbers .stat-item{min-height:120px}
+.key-numbers .stat-number{font-family:Gilam,'Gilam Demo',serif;font-weight:800;font-size:5rem;color:var(--white);line-height:1}
+.key-numbers .stat-number .stat-main{display:inline-block}
+.key-numbers .stat-number .stat-suffix{font-family:Rubik, Arial, sans-serif;font-size:.5em;margin-left:.2ch}
+
+@media (max-width:900px){
+   .key-numbers .stat-number{font-size:3.2rem}
+}
+@media (max-width:600px){
+   .key-numbers .stat-number{font-size:2.2rem}
+}
+
+/* Values page container: centered headings and paragraphs with spacing */
+.values-container{background:transparent;padding:3rem 1rem}
+.values-container .container{text-align:center;max-width:900px;margin:0 auto}
+.values-container h2{font-family:Gilam,'Gilam Demo',serif;font-size:2rem;margin-bottom:.75rem;color:var(--title-color)}
+.values-container p{font-family:RubikLight, Rubik, Arial, sans-serif;font-size:1.05rem;color:var(--paragraph-color);line-height:1.6;margin-bottom:1.75rem}
+
+/* Chapter content headings */
+.chapter-content h3{font-family:Gilam,'Gilam Demo',serif;font-size:1.6rem;color:var(--title-color);margin-bottom:1rem}
+.chapter-content h4{font-family:Gilam,'Gilam Demo',serif;font-size:1.1rem;color:var(--title-color);margin-top:1.25rem;margin-bottom:.5rem;font-weight:700}
+.chapter-content p{font-family:RubikLight, Rubik, Arial, sans-serif;font-size:1.02rem;color:var(--paragraph-color);line-height:1.6}
+
+/* Metrics (KPIs) for chapter pages */
+.chapter-metrics{margin-top:1.25rem;margin-bottom:1.25rem}
+/* Use flex so rows with fewer items are centered */
+.metrics-grid{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+.metrics-grid.small{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+.metric-card{background:rgba(11,59,71,0.04);padding:0.9rem;border-radius:8px;text-align:center;flex:1 1 calc(33.333% - 1rem);max-width:320px}
+.metric-number{font-family:Gilam,'Gilam Demo',serif;font-size:1.6rem;color:var(--title-color);font-weight:800}
+.metric-symbol{font-family:Rubik, Arial, sans-serif;font-size:.7em;margin:0 .25ch;vertical-align:baseline}
+.metric-label{font-family:RubikLight, Rubik, Arial, sans-serif;font-size:.95rem;color:var(--paragraph-color);margin-top:.35rem}
+
+@media (max-width:900px){
+   .metric-card{flex:1 1 calc(50% - 1rem)}
+}
+@media (max-width:600px){
+   .metric-card{flex:1 1 100%}
+   .metric-number{font-size:1.2rem}
+}
+
+/* Note: responsive overrides live in desktop.css / tablet.css / mobile.css */
+@import "./desktop.css" screen and (min-width:901px);
+@import "./tablet.css" screen and (min-width:601px) and (max-width:900px);
+@import "./mobile.css" screen and (max-width:600px);

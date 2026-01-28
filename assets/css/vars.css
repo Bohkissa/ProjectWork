@@ -1,0 +1,61 @@
+/* Variables, palette and typography */
+/* Font face per Gilam (file locale) */
+@font-face{
+  font-family: 'Gilam';
+  src: url('../fonts/GilamDemo-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+/* Rubik Light per testi dei paragrafi (file in assets/fonts) */
+@font-face{
+  font-family: 'RubikLight';
+  src: url('../fonts/Rubik-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+/* DMSans local file */
+@font-face{
+  font-family: 'DMSans';
+  src: url('../fonts/DMSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Font face per AbrilFatFace (file locale) */
+@font-face{
+  font-family: 'AbrilFatface';
+  src: url('../fonts/AbrilFatface-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Decorative font 'IndieFlower' (file locale) */
+@font-face{
+  font-family: 'IndieFlower';
+  src: url('../fonts/IndieFlower-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+:root{
+  --primary:#12262f;
+  --accent:#d99b2a;
+  --dark:#162224;
+  --muted:#6b7280;
+  --bg:#f6f7f8;
+  --white:#ffffff;
+  --border:rgba(11,59,71,0.06);
+  --overlay-start: rgba(11,59,71,0.72);
+  --overlay-mid: rgba(11,59,71,0.40);
+  --overlay-mid2: rgba(11,59,71,0.18);
+  --overlay-end: rgba(11,59,71,0);
+  --hero-overlay-gradient: linear-gradient(180deg, var(--overlay-start) 0%, var(--overlay-mid) 28%, var(--overlay-mid2) 52%, var(--overlay-end) 85%);
+  --container:1100px;
+  --topbar-h:48px;
+  --header-h:44px; /* ridotto di 20px */
+  --title-color: #0b3b47; /* verde scuro per titoli */
+  --paragraph-color: #4b5563; /* grigio scuro per paragrafi */
+  --img-overlap: 80px;
+}
