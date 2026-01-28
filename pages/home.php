@@ -19,7 +19,7 @@
   <div class="feature feature--reverse">
     <div class="feature-content">
       <h2>Il gruppo</h2>
-      <p class="lead">A destra titolo, sottotitolo e bottone; a sinistra la foto.</p>
+      <p class="lead">Persone, progetti, iniziative: ci sono molti modi per vivere i valori del Gruppo Veronesi e ognuno ha la sua storia.</p>
       <p><a href="index.php?page=il-gruppo" class="btn">Scopri di più</a></p>
     </div>
     <div class="feature-media">
@@ -30,7 +30,7 @@
   <div class="feature">
     <div class="feature-content">
       <h2>Il nostro impegno</h2>
-      <p class="lead">A sinistra titolo, sottotitolo e pulsante per approfondire le nostre azioni.</p>
+      <p class="lead">Scopri l’Annual Report 2023. Una finestra sul mondo Veronesi.</p>
       <p><a href="index.php?page=sostenibilita" class="btn">Scopri di più</a></p>
     </div>  
     <div class="feature-media">
